@@ -120,7 +120,7 @@ I built the tool for my Hyperland setup so I'm sharing the code for the sidebar 
 
 ![Preview of the widget](assets/preview.png)
 
-Deploy them with:
+Deploy the widgets with:
 ```bash
 cp -r widget/modules ~/.config/quickshell/ii/
 ```
