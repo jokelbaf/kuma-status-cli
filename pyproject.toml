@@ -1,0 +1,55 @@
+[project]
+name = "kuma-status-cli"
+version = "0.1.0"
+description = "Read Uptime Kuma status pages from the terminal or as JSON."
+readme = "README.md"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+authors = [
+    { name = "jokelbaf", email = "60827680+JokelBaf@users.noreply.github.com" }
+]
+requires-python = ">=3.14"
+dependencies = [
+    "requests>=2.34.2",
+    "rich>=15.0.0",
+    "typer>=0.27.2",
+    "uptime-kuma-api>=1.2.1",
+]
+
+[project.scripts]
+kuma-status-cli = "kuma_status_cli.cli:main"
+
+[build-system]
+requires = ["uv_build>=0.12.10,<0.13.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pyright>=1.1.411",
+    "ruff>=0.16.6",
+]
+
+[tool.ruff]
+line-length = 120
+target-version = "py314"
+src = ["src"]
+
+[tool.ruff.lint]
+select = [
+    "E", "W", "F", "I", "N", "UP", "B", "A", "C4", "SIM", "RET", "PTH", "RUF", "ANN", "D",
+]
+ignore = ["D203", "D213", "ANN401"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "pep257"
+
+[tool.ruff.format]
+quote-style = "double"
+
+[tool.pyright]
+include = ["src"]
+pythonVersion = "3.14"
+venvPath = "."
+venv = ".venv"
+typeCheckingMode = "strict"
+reportMissingTypeStubs = false
