@@ -13,7 +13,31 @@ Item {
 
     required property var group
     required property real contentWidth
+    property var store: null
+    property string parentKey: ""
     property bool expanded: true
+    property bool restored: false
+
+    readonly property string stateKey: root.parentKey + "/group:" + (root.group?.id ?? root.group?.name ?? "")
+
+    function restoreExpansion() {
+        root.expanded = root.store ? root.store.get(root.stateKey, true) : true;
+    }
+
+    Component.onCompleted: {
+        root.restoreExpansion();
+        root.restored = true;
+    }
+
+    onStateKeyChanged: {
+        if (root.restored)
+            root.restoreExpansion();
+    }
+
+    onExpandedChanged: {
+        if (root.restored && root.store)
+            root.store.set(root.stateKey, root.expanded);
+    }
 
     implicitWidth: contentWidth
     implicitHeight: column.implicitHeight
@@ -91,6 +115,8 @@ Item {
                         Layout.leftMargin: 10
                         monitor: modelData
                         contentWidth: root.contentWidth - 10
+                        store: root.store
+                        parentKey: root.stateKey
                     }
                 }
             }

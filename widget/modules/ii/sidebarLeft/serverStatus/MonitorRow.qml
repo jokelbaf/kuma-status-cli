@@ -13,7 +13,31 @@ Item {
 
     required property var monitor
     required property real contentWidth
+    property var store: null
+    property string parentKey: ""
     property bool expanded: false
+    property bool restored: false
+
+    readonly property string stateKey: root.parentKey + "/monitor:" + (root.monitor?.id ?? root.monitor?.name ?? "")
+
+    function restoreExpansion() {
+        root.expanded = root.store ? root.store.get(root.stateKey, false) : false;
+    }
+
+    Component.onCompleted: {
+        root.restoreExpansion();
+        root.restored = true;
+    }
+
+    onStateKeyChanged: {
+        if (root.restored)
+            root.restoreExpansion();
+    }
+
+    onExpandedChanged: {
+        if (root.restored && root.store)
+            root.store.set(root.stateKey, root.expanded);
+    }
 
     readonly property var lastBeat: monitor.heartbeats.length > 0 ? monitor.heartbeats[monitor.heartbeats.length - 1] : null
     readonly property var details: [

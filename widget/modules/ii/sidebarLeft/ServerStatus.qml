@@ -79,6 +79,10 @@ Item {
         id: palette
     }
 
+    ExpansionStore {
+        id: expansionStore
+    }
+
     Process {
         id: fetchProc
         command: root.options.command.concat(["--json", "--beats", String(root.options.beats)])
@@ -265,6 +269,7 @@ Item {
                             Layout.fillWidth: true
                             page: modelData
                             contentWidth: flickable.width
+                            store: expansionStore
                         }
                     }
                 }

@@ -13,8 +13,31 @@ Rectangle {
 
     required property var page
     required property real contentWidth
+    property var store: null
     property bool expanded: true
+    property bool restored: false
     property real cardPadding: 6
+
+    readonly property string stateKey: "page:" + (root.page?.slug ?? root.page?.id ?? "")
+
+    function restoreExpansion() {
+        root.expanded = root.store ? root.store.get(root.stateKey, true) : true;
+    }
+
+    Component.onCompleted: {
+        root.restoreExpansion();
+        root.restored = true;
+    }
+
+    onStateKeyChanged: {
+        if (root.restored)
+            root.restoreExpansion();
+    }
+
+    onExpandedChanged: {
+        if (root.restored && root.store)
+            root.store.set(root.stateKey, root.expanded);
+    }
 
     readonly property real innerWidth: contentWidth - cardPadding * 2
 
@@ -133,6 +156,8 @@ Rectangle {
                         Layout.fillWidth: true
                         group: modelData
                         contentWidth: root.innerWidth
+                        store: root.store
+                        parentKey: root.stateKey
                     }
                 }
             }
