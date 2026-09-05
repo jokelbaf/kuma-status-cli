@@ -145,7 +145,7 @@ Item {
 
                 StyledText {
                     Layout.fillWidth: true
-                    text: Translation.tr("Server status")
+                    text: Translation.tr("Services status")
                     font.pixelSize: Appearance.font.pixelSize.normal
                     font.variableAxes: Appearance.font.variableAxes.title
                     color: Appearance.colors.colOnLayer1
