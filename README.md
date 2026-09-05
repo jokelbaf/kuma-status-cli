@@ -118,6 +118,8 @@ Note that unpublished status pages cannot be fetched over Uptime Kuma's public e
 
 I built the tool for my Hyperland setup so I'm sharing the code for the sidebar widget in this repo. `widget/` contains the Quickshell (end-4 illogical-impulse) files that render this data as a left-sidebar tab.
 
+![Preview of the widget](assets/preview.png)
+
 Deploy them with:
 ```bash
 cp -r widget/modules ~/.config/quickshell/ii/
