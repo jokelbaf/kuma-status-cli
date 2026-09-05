@@ -1,0 +1,21 @@
+name: Create Release
+
+on:
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - uses: seriaati/create-release@v1.0.1
+        with:
+          tool: uv

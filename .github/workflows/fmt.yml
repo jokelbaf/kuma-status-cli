@@ -1,0 +1,21 @@
+name: Format Code
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  fmt:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: astral-sh/setup-uv@v10.0.0
+        with:
+          enable-cache: true
+
+      - run: uv sync --dev
+
+      - run: uv run ruff format --check .
